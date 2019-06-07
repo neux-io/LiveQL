@@ -3,6 +3,8 @@ from flask_graphql import GraphQLView
 import graphene
 from query import Query
 
+
+
 class Serve(object):
     app = None
     schema = None

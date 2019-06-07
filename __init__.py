@@ -1,5 +1,5 @@
-from neux import Neux
+from liveql import LiveQL
 
 
 def create_instance(c_instance):
-    return Neux(c_instance)
+    return LiveQL(c_instance)

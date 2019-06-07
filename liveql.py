@@ -2,7 +2,7 @@ import Live
 from _Framework.ControlSurface import ControlSurface # Central base class for scripts based on the new Framework
 
 
-class Neux(ControlSurface):
+class LiveQL(ControlSurface):
 
     def __init__(self, c_instance):
 
