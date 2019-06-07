@@ -1,3 +1,4 @@
 graphene==2.1.5
 flask>=1.0.3
 flask-graphql==2.0.0
+promise==2.1

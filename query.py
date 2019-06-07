@@ -2,12 +2,14 @@ import graphene
 from graphene import relay
 from obj.clip import Clip
 from obj.track import Track
+import loader
 
 
 class Query(graphene.ObjectType):
+
     node = relay.Node.Field()
     clip = graphene.Field(Clip)
-    track = graphene.Field(Track)
+    track = graphene.List(lambda: Track)
 
     hello = graphene.String(name=graphene.String(default_value="stranger"))
 
@@ -18,4 +20,4 @@ class Query(graphene.ObjectType):
         return Clip(name="dd")
 
     def resolve_track(self, info):
-        return Track(name="oo")
+        return loader.TrackLoader().load()
