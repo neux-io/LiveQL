@@ -1,18 +1,15 @@
 import graphene
 
 
-class ClipFields(graphene.AbstractType):
+
+class Clip(graphene.ObjectType):
     name = graphene.String()
     track_id = graphene.Int()
     slot_id = graphene.Int()
     clip_id = graphene.Int()
 
 
-class Clip(graphene.ObjectType, ClipFields):
-    pass
-
-
-class ClipInput(graphene.InputObjectType, ClipFields):
+class ClipInput(graphene.InputObjectType):
     pass
 
 

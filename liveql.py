@@ -1,18 +1,23 @@
 import Live
 from _Framework.ControlSurface import ControlSurface # Central base class for scripts based on the new Framework
 import sys
-sys.path.append('/Applications/Ableton\ Live\ 10\ Suite.app/Contents/App-Resources/MIDI\ Remote\ Scripts/')
-from flask import Flask
+sys.path.append('/usr/local/lib/python2.7/site-packages')
+import pprint
+from serve import Serve
+
 
 
 class LiveQL(ControlSurface):
 
     def __init__(self, c_instance):
 
+
+
         ControlSurface.__init__(self, c_instance)
-        #self.log_message("LOADING...")
-        #s = Serve()
-        #self.log_message("LOADED :)")
+        #self.log_message(sys.path)
+        self.log_message("LOADING....")
+        s = Serve()
+        self.log_message("LOADED :)")
         #t = self.getTracks()[0]
         #self.log_message("TRACK: {0}".format(t.name))
 

@@ -1,16 +1,13 @@
 import graphene
 
 
-class TrackFields(graphene.AbstractType):
+
+class Track(graphene.ObjectType):
     name = graphene.String()
     track_id = graphene.Int()
 
 
-class Track(graphene.ObjectType, TrackFields):
-    pass
-
-
-class TrackInput(graphene.InputObjectType, TrackFields):
+class TrackInput(graphene.InputObjectType):
     pass
 
 

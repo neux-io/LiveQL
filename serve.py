@@ -2,6 +2,9 @@ from flask import Flask
 from flask_graphql import GraphQLView
 import graphene
 from query import Query
+import logging
+import sys
+import os
 
 
 
@@ -10,8 +13,15 @@ class Serve(object):
     schema = None
 
     def __init__ (self):
+
+        os.environ["WERKZEUG_RUN_MAIN"] = "true"
         self.app = Flask(__name__)
-        self.app.debug = True
+
+        log = logging.getLogger('werkzeug')
+        log.disabled = True
+        self.app.logger.disabled = True
+
+        self.app.debug = False
         self.schema = graphene.Schema(query=Query)
 
         self.app.add_url_rule(
@@ -23,5 +33,6 @@ class Serve(object):
             )
         )
 
+        logging.basicConfig(filename='/Users/piotrek/.liveql/error.log',level=logging.DEBUG)
         self.app.run()
 
