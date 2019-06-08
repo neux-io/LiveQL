@@ -22,6 +22,7 @@ class Serve(object):
         self.app.logger.disabled = True
 
         self.app.debug = False
+        self.app.use_reloader=False
         self.schema = graphene.Schema(query=Query)
 
         self.app.add_url_rule(
@@ -34,5 +35,5 @@ class Serve(object):
         )
 
         logging.basicConfig(filename='/Users/piotrek/.liveql/error.log',level=logging.DEBUG)
-        self.app.run()
+        self.app.run(threaded=True)
 

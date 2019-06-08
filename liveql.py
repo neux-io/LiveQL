@@ -1,4 +1,5 @@
 import Live
+import threading
 from _Framework.ControlSurface import ControlSurface # Central base class for scripts based on the new Framework
 import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
@@ -6,20 +7,32 @@ import pprint
 from serve import Serve
 
 
+class MyThread(threading.Thread):
+    def __init__(self):
+        super(MyThread, self).__init__()
+        # Can setup other things before the thread starts
+
+
+    def run(self):
+        s = Serve()
+
 
 class LiveQL(ControlSurface):
 
     def __init__(self, c_instance):
+        super(LiveQL, self).__init__(c_instance)
+
+        with self.component_guard():
 
 
+            ControlSurface.__init__(self, c_instance)
+            #self.log_message(sys.path)
+            self.log_message("LOADING....")
+            thread = MyThread()
+            thread.start()
 
-        ControlSurface.__init__(self, c_instance)
-        #self.log_message(sys.path)
-        self.log_message("LOADING....")
-        s = Serve()
-        self.log_message("LOADED :)")
-        #t = self.getTracks()[0]
-        #self.log_message("TRACK: {0}".format(t.name))
+            #t = self.getTracks()[0]
+            #self.log_message("TRACK: {0}".format(t.name))
 
 
 
