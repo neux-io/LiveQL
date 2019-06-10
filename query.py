@@ -5,7 +5,7 @@ from obj.track import Track
 import loader
 
 
-class Query(graphene.ObjectType):
+class LiveQuery(graphene.ObjectType):
 
     node = relay.Node.Field()
     clip = graphene.Field(Clip)

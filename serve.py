@@ -1,18 +1,20 @@
 from flask import Flask
 from flask_graphql import GraphQLView
 import graphene
-from query import Query
+from graphene import relay
+#from query import LiveQuery
 import logging
 import sys
 import os
+import logging
 
 
-
-class Serve(object):
+class Serve(Flask):
     app = None
     schema = None
 
-    def __init__ (self):
+    def __init__(self, *args, **kwargs):
+        super(Serve, self).__init__(*args, **kwargs)
 
         os.environ["WERKZEUG_RUN_MAIN"] = "true"
         self.app = Flask(__name__)
@@ -23,7 +25,7 @@ class Serve(object):
 
         self.app.debug = False
         self.app.use_reloader=False
-        self.schema = graphene.Schema(query=Query)
+        self.schema = graphene.Schema(query=QueryDebug)
 
         self.app.add_url_rule(
             '/graphql',
@@ -34,6 +36,8 @@ class Serve(object):
             )
         )
 
-        logging.basicConfig(filename='/Users/piotrek/.liveql/error.log',level=logging.DEBUG)
-        self.app.run(threaded=True)
+    def start_graphql_endpoint(self):
+        self.app.run()
 
+class QueryDebug(graphene.ObjectType):
+    node = relay.Node.Field()

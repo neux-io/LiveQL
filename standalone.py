@@ -1,17 +1,13 @@
-from serve_basic import Serve
-import os
+from serve_basic import ServeDebugGraphql
 import time
+import threading
+print "Starting GraphQL Endpoint: http://localhost:5000/graphql"
+s=ServeDebugGraphql("ServeBasic")
 
+t1 = threading.Thread(target=s.start_graphql_endpoint)
+t1.start()
 
-
-pid=os.fork()
-if pid == 0:
-    s = Serve()
-    # parent
-
-
-
-while True:
-    print("I'm the parent")
-    time.sleep(0.5)
-
+x = True
+while x:
+    time.sleep(3)
+    print "Wait 3s ..."
