@@ -1,10 +1,11 @@
 from serve_basic import ServeDebugGraphql
+from serve_basic import ServeDebugAbout
 import time
 import threading
 import multiprocessing
 import logging
 import sys
-print "Starting GraphQL Endpoint: http://localhost:5000/graphql"
+
 
 
 #s=ServeDebugGraphql("ServeBasic")
@@ -55,11 +56,20 @@ class JobProcess(multiprocessing.Process):
         thread_logger.info("Starting " + self.name + "...")
         self.s.start_graphql_endpoint()
 
+
+
 print "Notice how regular print statements don't go to the log."
 #testing_module = __import__("test_thread")
 
-test_job = JobProcess()
-test_job.start()
+#test_job = JobProcess()
+#test_job.start()
+
+print "Starting GraphQL Endpoint: http://localhost:5000/"
+serve = ServeDebugAbout("Serve")
+thread_serve = threading.Thread(target=serve.app.run)
+thread_serve.daemon = True
+thread_serve.start()
+
 print "Process queued!"
 
 x = True

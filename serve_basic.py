@@ -45,11 +45,12 @@ class QueryDebug(graphene.ObjectType):
     node = relay.Node.Field()
 
 
-class ServeDebugAbout:
+class ServeDebugAbout(Flask):
     app = None
     schema = None
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(ServeDebugAbout, self).__init__(*args, **kwargs)
         os.environ["WERKZEUG_RUN_MAIN"] = "true"
         self.app = Flask("ServeBasic")
         self.app.debug = False
@@ -63,10 +64,11 @@ class ServeDebugAbout:
         self.app.use_reloader=False
 
         self.app.add_url_rule('/', 'about', self.about)
-        self.app.run()
 
-    def start_graphql_endpoint(self):
+    def about(self):
         return "about page"
+
+
 
 
 

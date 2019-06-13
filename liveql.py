@@ -2,11 +2,12 @@ import Live
 from _Framework.ControlSurface import ControlSurface # Central base class for scripts based on the new Framework
 import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
-sys.path.append('/Users/piotrek/Library/Python/2.7/lib/python/site-packages/multiprocessing')
+#sys.path.append('/Users/piotrek/Library/Python/2.7/lib/python/site-packages/multiprocessing')
 import os
-import multiprocessing
-from serve import Serve
-#from serve_basic import ServeDebugGraphql
+#import multiprocessing
+import threading
+#from serve import Serve
+from serve_basic import ServeDebugAbout
 import time
 import logging
 import sys
@@ -34,8 +35,18 @@ class LiveQL(ControlSurface):
         #self.thread_serve.daemon = True
         #self.thread_serve.start()
 
-        self.thread_serve = JobProcess()
+        #self.serve = ServeDebugAbout("ServeBasic")
+        #d = multiprocessing.Process(name='FlaskDaemon', target=self.serve.app.run())
+        #d.daemon = True
+        #d.start()
+
+        self.serve = ServeDebugAbout("Serve")
+        self.thread_serve = threading.Thread(target=self.serve.app.run)
+        self.thread_serve.daemon = True
         self.thread_serve.start()
+
+        #self.thread_serve = ServeDebugAbout()
+        #self.thread_serve.ServeDebugAbout()
 
             #self.log_message(sys.path)
             #self.log_message("LOADING....")
@@ -48,13 +59,17 @@ class LiveQL(ControlSurface):
 #    def getSet(self):
 #        return Live.Application.get_application().get_document()
 #
+    def update_display(self):
+        self.log_message(self.thread_serve.isAlive())
+        #time.sleep(80)
+
     def getTracks(self):
         return Live.Application.get_application().get_document().tracks
 
     def is_extension(self):
         return False
 
-
+'''
 class StreamToLogger(object):
     def __init__(self, logger, log_level=logging.INFO):
         self.logger = logger
@@ -88,3 +103,4 @@ class JobProcess(multiprocessing.Process):
         sys.stderr = StreamToLogger(thread_logger, logging.ERROR)
         thread_logger.info("Starting " + self.name + "...")
         self.s.start_graphql_endpoint()
+'''
