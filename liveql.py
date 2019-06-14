@@ -60,8 +60,14 @@ class LiveQL(ControlSurface):
 #        return Live.Application.get_application().get_document()
 #
     def update_display(self):
-        self.log_message(self.thread_serve.isAlive())
-        #time.sleep(80)
+        wait = 1
+        self.log_message("Wait 3s ...")
+        time.sleep(wait)
+        self.log_message("Wait 2s ...")
+        time.sleep(wait)
+        self.log_message("Wait 1s ...")
+        time.sleep(wait)
+        self.log_message("Done.")
 
     def getTracks(self):
         return Live.Application.get_application().get_document().tracks
